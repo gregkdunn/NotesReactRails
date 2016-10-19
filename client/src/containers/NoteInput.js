@@ -1,67 +1,72 @@
-import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { addNote } from '../actions/notesActions';
-import TextField from 'material-ui/TextField';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
-
-const levels = [
-  <MenuItem key={1} value={1} primaryText="Confidential" />,
-  <MenuItem key={2} value={2} primaryText="High" />,
-  <MenuItem key={3} value={3} primaryText="Normal" />,
-
-];
+import React, { PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { addNote } from '../actions/notesActions'
+import { saveNote } from '../actions/notesActions'
+import {Card, CardTitle, CardText, CardActions} from 'material-ui/Card'
+import TextField from 'material-ui/TextField'
+import RaisedButton from 'material-ui/RaisedButton'
+import uuid from 'uuid'
 
 let NoteInput = ({ dispatch }) => {
-
-    const handleChange = (event, key, value) => {
-        this.props.type = value;
-    }
     const submitNote = () => {
+        console.log('NoteInput.submitNote');
+
+        const apptNumber = 1
 
         const titleElement = document.getElementById('title');
-        const typeElement = document.getElementById('type');
-        const messageElement = document.getElementById('message');
-
+        const contentElement = document.getElementById('content');
         
-        if(!titleElement.value && !messageElement.value) {
+        if(!titleElement.value && !contentElement.value) {
             return 
         }
 
         const noteParams = {
             title: titleElement.value,
-            message: messageElement.value
-        };
+            content: contentElement.value,
+            uuid: uuid.v1()
+        };        
+        dispatch(addNote(apptNumber, noteParams));
 
-        dispatch(addNote(1, noteParams));//TODO value for appointment id
+        //TODO value for appointment id
         titleElement.value = '';
-        messageElement.value = '';
+        contentElement.value = '';
+
+        dispatch(saveNote(apptNumber, noteParams));
     };
 
-   const style = {
+   const textFieldStyle = {
         display:'block'
    };
 
+   const buttonStyle = {
+        float:'right'
+   }
+
+
+
     return (
-        <div>
+        <Card>
+            <CardText>
             <form onSubmit={e => {e.preventDefault(); submitNote();}} id="noteForm">
-                <TextField floatingLabelText="Title" id="title" style={style}/>
-                <TextField floatingLabelText="Note" id="message" style={style}/>
-                <RaisedButton label="Add Note" primary={true}  onClick={e => {submitNote();}}/>
+                <TextField floatingLabelText="Title" id="title" style={textFieldStyle}/>
+                <TextField floatingLabelText="Note" id="content" style={textFieldStyle}/>
+                <RaisedButton label="Add Note" primary={true}  style={buttonStyle} onClick={e => {submitNote();}}/>
             </form>
-        </div>
+            </CardText>
+        </Card>
     );
 };
-NoteInput = connect()(NoteInput);
+
 
 NoteInput.propTypes = {
     title: PropTypes.string,
-    message: PropTypes.string
+    content: PropTypes.string
 };
 NoteInput.InitialState = {
     title: '',
-    message: ''
+    content: ''
 };
+
+NoteInput = connect()(NoteInput);
 
 export default NoteInput;
