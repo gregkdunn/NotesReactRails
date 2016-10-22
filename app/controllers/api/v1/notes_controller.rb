@@ -21,7 +21,7 @@ module Api::V1
       @note = Note.new(note_params)
 
       if @note.save
-        render json: @note, status: :created, location: @note
+        render json: @note, status: :created
       else
         render json: @note.errors, status: :unprocessable_entity
       end
@@ -39,6 +39,8 @@ module Api::V1
     # DELETE /notes/1
     def destroy
       @note.destroy
+
+      render json: {:deleted => :true}
     end
 
     private
@@ -49,7 +51,7 @@ module Api::V1
 
       # Only allow a trusted parameter "white list" through.
       def note_params
-        params.fetch(:note, {})
+        params.permit(:uuid, :content, :title)
       end
   end
 end

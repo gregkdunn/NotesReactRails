@@ -1,4 +1,5 @@
 import React from 'react';
+import Immutable from 'immutable'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import configureStore from './store/configure-store';
@@ -9,8 +10,8 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
-
-const store = configureStore();
+let state = Immutable.Map({});
+const store = configureStore(state);
 
 const ApptApp = () => (
 	<MuiThemeProvider>

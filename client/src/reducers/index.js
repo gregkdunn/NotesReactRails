@@ -1,9 +1,7 @@
-import {combineReducers} from 'redux';
-import attendees from './attendees';
+import {combineReducers} from 'redux-immutable';
 import notes from './notes';
 
 const rootReducer = combineReducers({
-    attendees,
     notes
 });
 

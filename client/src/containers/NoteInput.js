@@ -8,30 +8,28 @@ import RaisedButton from 'material-ui/RaisedButton'
 import uuid from 'uuid'
 
 let NoteInput = ({ dispatch }) => {
+    let titleInput, contentInput
+
     const submitNote = () => {
         console.log('NoteInput.submitNote');
+        console.dir(titleInput)
 
-        const apptNumber = 1
 
-        const titleElement = document.getElementById('title');
-        const contentElement = document.getElementById('content');
-        
-        if(!titleElement.value && !contentElement.value) {
+        if(!titleInput.getValue() && !contentInput.getValue()) {
             return 
         }
-
+        const uuidVal = uuid.v1();
         const noteParams = {
-            title: titleElement.value,
-            content: contentElement.value,
-            uuid: uuid.v1()
+            title: titleInput.getValue(),
+            content: contentInput.getValue(),
+            uuid: uuidVal
         };        
-        dispatch(addNote(apptNumber, noteParams));
+        dispatch(addNote(noteParams));
 
-        //TODO value for appointment id
-        titleElement.value = '';
-        contentElement.value = '';
+        titleInput.value = '';
+        contentInput.value = '';
 
-        dispatch(saveNote(apptNumber, noteParams));
+        dispatch(saveNote(noteParams));
     };
 
    const textFieldStyle = {
@@ -39,20 +37,23 @@ let NoteInput = ({ dispatch }) => {
    };
 
    const buttonStyle = {
-        float:'right'
+       //float:'right'
    }
-
-
 
     return (
         <Card>
-            <CardText>
+            
             <form onSubmit={e => {e.preventDefault(); submitNote();}} id="noteForm">
-                <TextField floatingLabelText="Title" id="title" style={textFieldStyle}/>
-                <TextField floatingLabelText="Note" id="content" style={textFieldStyle}/>
-                <RaisedButton label="Add Note" primary={true}  style={buttonStyle} onClick={e => {submitNote();}}/>
-            </form>
+            <CardTitle title="New Note"/>
+            <CardText>
+                <TextField floatingLabelText="Title" ref={node => {titleInput = node}} style={textFieldStyle}/>
+                <TextField floatingLabelText="Note" ref={node => {contentInput = node}} style={textFieldStyle}/>
             </CardText>
+            <CardActions>    
+                <RaisedButton label="Add Note" primary={true}  style={buttonStyle} onClick={e => {submitNote();}}/>
+            </CardActions>
+            </form>
+            
         </Card>
     );
 };

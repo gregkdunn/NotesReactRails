@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { fetchNotesIfNeeded } from '../actions/notesActions'
 import NoteList from '../components/NoteList';
 import FontIcon from 'material-ui/FontIcon';
-import {red500, yellow500, blue500} from 'material-ui/styles/colors';
+import {red500} from 'material-ui/styles/colors';
   
 const iconStyles = {
   marginRight: 24,
@@ -22,8 +22,6 @@ class AppNoteList extends Component {
     const { fetchNotesIfNeeded } = this.props
     fetchNotesIfNeeded();
   }
-
-
   
   render() {
     return (
