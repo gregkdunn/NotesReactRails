@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import Immutable from 'immutable'
 import Note from './Note'
-import NoteForm from './NoteForm'
+import NoteForm from '../containers/NoteForm'
 
 const NoteList = ({ notes }) => {
     var listStyle = {listStyleType:'none'};

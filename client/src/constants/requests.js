@@ -7,23 +7,22 @@ export const defaultHeaders = new Headers({
 export const getInit = { method: 'GET',
                headers: defaultHeaders };
 
-export const postInit = { method: 'POST',
-               headers: defaultHeaders };               
-
-export const putInit = { method: 'PUT',
-               headers: defaultHeaders };
-
 export const deleteInit = { method: 'DELETE',
                headers: defaultHeaders };
 
-export const initWithBodyObject = (init, anObject) => {
+const postInit = { method: 'POST',
+               headers: defaultHeaders };               
+
+const putInit = { method: 'PUT',
+               headers: defaultHeaders };
+
+const initWithBodyObject = (init, anObject) => {
 	console.log('postObject');
 	console.dir(anObject)
 	const jsonObject = JSON.stringify(anObject);
 	return Object.assign(init, {'body': jsonObject});
 
 }
-
 export const postInitWithBodyObject = (anObject) => {
 	return initWithBodyObject(postInit, anObject)
 }
@@ -31,10 +30,6 @@ export const postInitWithBodyObject = (anObject) => {
 export const putInitWithBodyObject = (anObject) => {
 	return initWithBodyObject(putInit, anObject)
 }
-
-
-
-
 
 //base URLs
 const baseURL = 'http://localhost:3001';

@@ -6,7 +6,7 @@ import {Card, CardTitle, CardActions} from 'material-ui/Card'
 import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
 
-let NoteForm = ({note, dispatch}) => {
+let NoteForm = ({note, fields = {},  dispatch}) => {
     const listItemStyle={margin:'8px',float:'left'};
     const cardStyle = {width:'320px'};
     const textFieldStyle = {display:'block', margin: '8px'};
@@ -48,7 +48,8 @@ let NoteForm = ({note, dispatch}) => {
 };
 
 NoteForm.propTypes = {
-    note: PropTypes.instanceOf(Immutable.Map).isRequired
+    note: PropTypes.instanceOf(Immutable.Map).isRequired,
+    fields: PropTypes.object
 };
 
 

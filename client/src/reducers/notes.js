@@ -1,13 +1,15 @@
- import * as types from '../actions/action-types'
+ import * as types from '../actions/actionTypes'
 import Immutable from 'immutable'
 //import {logState} from '../helpers/logs'
 import { tryListItemUpdate } from '../helpers/lists'
+import * as selectors from '../selectors/selectorTypes'
 
 const initialState = Immutable.Map({
         items:Immutable.List(), 
         selectedAppt: Immutable.Map({id:1, name:"the one"}),
         isFetching: true,
-        lastUpdated: null
+        lastUpdated: null,
+        sortBy: selectors.SORT_BY_TITLE
     }
 );
 

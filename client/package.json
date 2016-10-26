@@ -23,6 +23,8 @@
     "redux-promise": "^0.5.3",
     "redux-logger": "^2.6.0",
     "redux-thunk": "^2.0.1",
+    "redux-undo": "^0.6.1",
+    "reselect": "2.5.4",
     "uuid": "^2.0.3"
   },
   "scripts": {

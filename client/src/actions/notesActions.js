@@ -1,4 +1,4 @@
-import * as types from './action-types'
+import * as types from './actionTypes'
 import * as requests from '../constants/requests'
 import { checkStatus, parseJSON } from './async'
 
