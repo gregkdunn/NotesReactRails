@@ -9,11 +9,10 @@ import NoteSort from './NoteSort'
 import { getSortedItemsFilteredByKeyword } from '../selectors/filterSelector'
 import FontIcon from 'material-ui/FontIcon'
 import {red500} from 'material-ui/styles/colors'
-import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
-import {Card, CardTitle, CardText, CardActions} from 'material-ui/Card'
 
 const iconStyles = {
-  marginRight: 24,
+  margin: 24,
+  float: 'left'
 }
 
 class AppNoteList extends Component {
@@ -31,15 +30,8 @@ class AppNoteList extends Component {
   render() {
     return (
       <div>
-        <Toolbar>
-          <ToolbarGroup firstChild={true}>
-            <FontIcon className="material-icons" style={iconStyles} hoverColor={red500} onClick={this.props.fetchNotesIfNeeded}>refresh</FontIcon>
-          </ToolbarGroup>
-          <ToolbarGroup> 
-            
-          </ToolbarGroup>
-        </Toolbar>
         <div className="bb w-100">
+          <FontIcon className="material-icons" style={iconStyles} hoverColor={red500} onClick={this.props.fetchNotesIfNeeded}>refresh</FontIcon>
           <div className="fr w-20 m2"><NoteSort /></div>  
           <div className="w-80"><NoteFilter /></div>
         </div>

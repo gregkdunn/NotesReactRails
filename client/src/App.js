@@ -4,7 +4,7 @@ import AppBar from 'material-ui/AppBar';
 
 const App = () => (
             <div>
-              <AppBar title="App" iconClassNameRight="muidocs-icon-navigation-expand-more"/>
+              <AppBar title="Notes"/>
               <div className="NoteArea">
 	            <ProjectNoteList/>
               </div>

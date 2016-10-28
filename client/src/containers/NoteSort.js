@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import * as selectors from '../selectors/selectorTypes'
 import { sortNotes } from '../actions/notesActions'
+import DropDownMenu from 'material-ui/DropDownMenu'
 import IconMenu from 'material-ui/IconMenu'
 import MenuItem from 'material-ui/MenuItem'
 import IconButton from 'material-ui/IconButton'
@@ -18,17 +19,20 @@ let NoteSort = ({sortBy = selectors.SORT_BY_ID, dispatch}) => {
 	
 	const menuItemStyle = {
 		backgroundColor: 'white', 
+		backgroundImage:'none',
 		border: '0'
 	}
 
     return (
-	    <IconMenu style={menuItemStyle} iconButtonElement={<IconButton><ContentFilter /></IconButton>} value={sortBy} onChange={handleChange}>
+    	<div>
+    	<span>Sort By:</span>
+	    <DropDownMenu iconButtonElement={<IconButton><ContentFilter /></IconButton>} value={sortBy} onChange={handleChange}>
 	        <MenuItem style={menuItemStyle} value={selectors.SORT_BY_ID} primaryText="Id" />
 	        <MenuItem style={menuItemStyle} value={selectors.SORT_BY_TITLE} primaryText="Title" />
 	        <MenuItem style={menuItemStyle} value={selectors.SORT_BY_CREATED_DATE} primaryText="Created" />
 	        <MenuItem style={menuItemStyle} value={selectors.SORT_BY_UPDATED_DATE} primaryText="Updated" />
-        </IconMenu>  
-      
+        </DropDownMenu>  
+        </div>
     )
 }
 
