@@ -4,6 +4,7 @@ The app was created with a rails backend and react frontend. All of the React/Re
 
 * rake db:create
 * rake db:migrate
+* bundle
 
 * cd client
 * npm install
