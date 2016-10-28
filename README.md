@@ -1,24 +1,12 @@
-# README
+# Setup
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The app was created with a rails backend and react frontend. All of the React/Redux code is in the /client directory.
 
-Things you may want to cover:
+* db:create
+* db:migrate
 
-* Ruby version
+* cd client
+* npm install
 
-* System dependencies
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* rake start
