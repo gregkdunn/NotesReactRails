@@ -1,17 +1,20 @@
-export const ADD_ATTENDEE = 'ADD_ATTENDEE';
 
 //NOTES
-export const ADD_NOTE = 'ADD_NOTE';
-export const DELETE_NOTE = 'DELETE_NOTE';
-export const EDIT_NOTE = 'EDIT_NOTE';
-
-export const OPEN_EDIT_NOTE = 'OPEN_EDIT_NOTE';
-export const CLOSE_EDIT_NOTE = 'CLOSE_EDIT_NOTE';
+export const FILTER_NOTES = 'FILTER_NOTES'
+export const SORT_NOTES = 'SORT_NOTES'
 
 export const FETCH_NOTES = 'FETCH_NOTES';
 export const FETCH_NOTES_REQUEST = 'FETCH_NOTES_REQUEST';
 export const FETCH_NOTES_ERROR = 'FETCH_NOTES_ERROR';
 export const FETCH_NOTES_SUCCESS = 'FETCH_NOTES_SUCCESS';
+
+//NOTE
+export const ADD_NOTE = 'ADD_NOTE'
+export const DELETE_NOTE = 'DELETE_NOTE'
+export const EDIT_NOTE = 'EDIT_NOTE'
+
+export const OPEN_EDIT_NOTE = 'OPEN_EDIT_NOTE';
+export const CLOSE_EDIT_NOTE = 'CLOSE_EDIT_NOTE';
 
 export const SAVE_NOTE = 'SAVE_NOTE';
 export const SAVE_NOTE_REQUEST = 'SAVE_NOTE_REQUEST';
@@ -27,3 +30,5 @@ export const UPDATE_NOTE = 'UPDATE_NOTE';
 export const UPDATE_NOTE_REQUEST = 'UPDATE_NOTE_REQUEST';
 export const UPDATE_NOTE_ERROR = 'UPDATE_NOTE_ERROR';
 export const UPDATE_NOTE_SUCCESS = 'UPDATE_NOTE_SUCCESS';
+
+export const PENDING_UPDATE = 'PENDING_UPDATE'

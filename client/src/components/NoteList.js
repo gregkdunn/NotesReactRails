@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import Immutable from 'immutable'
-import Note from './Note'
+import Note from '../containers/Note'
 import NoteForm from '../containers/NoteForm'
 
 const NoteList = ({ notes }) => {

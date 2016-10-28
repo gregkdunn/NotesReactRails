@@ -3,7 +3,102 @@ import * as requests from '../constants/requests'
 import { checkStatus, parseJSON } from './async'
 
 
-// client actions
+//NOTES
+export const sortNotes = (sortBy) => {
+    console.log('SORT_NOTES:');
+    return {
+      type: types.SORT_NOTES,
+      sortBy
+    }
+}
+
+export const filterNotes = (filterKeywords) => {
+  console.log('FILTER_NOTES:')
+  return {
+      type: types.FILTER_NOTES,
+      filterKeywords
+  }
+}
+
+
+//read
+const fetchNotesRequest = () => {
+    console.log('FETCH_NOTES_REQUEST:');
+    return {
+      type: types.FETCH_NOTES_REQUEST
+    };
+}
+
+const fetchNotesSuccess = (json) => {
+  console.log('FETCH_NOTES_SUCCESS:');
+    return {
+      type: types.FETCH_NOTES_SUCCESS,
+      notes: json,
+      received: Date.now()
+    };
+}
+
+const fetchNotesError = (error) => {
+  console.log('FETCH_NOTES_ERROR:');
+    return {
+      type: types.FETCH_NOTES_ERROR,  
+      error: error
+    };
+}
+
+export const fetchNotes = () => dispatch => {
+  console.log('FETCH_NOTES:');
+  const appointment = '1';
+  dispatch(fetchNotesRequest(appointment));
+  return fetch(requests.notesURL, requests.getInit)
+    .then(
+      checkStatus
+    )
+    .then(
+      parseJSON
+    )
+    .then((responseJSON) => {
+      console.log('FETCH_NOTES:SUCCESS');
+      console.dir(responseJSON);
+            dispatch(fetchNotesSuccess(responseJSON))
+          }
+    )
+    .catch((responseError) => {   
+      console.log('FETCH_NOTES:ERROR');
+      console.dir(responseError);
+      dispatch(fetchNotesError(responseError))
+      }
+    )
+}
+
+const shouldFetchNotes = (state) => {
+console.log('SHOULD_REFRESH_NOTES');  
+  const notes = state.notes;
+  if (!notes || !notes.items) {
+    console.log('SHOULD_REFRESH_NOTES:NO_CONTENT'); 
+    return true
+  }
+  if (notes.isFetching) {
+    console.log('SHOULD_REFRESH_NOTES:ALREADY_FETCHING'); 
+    return false
+  }
+  console.log('SHOULD_REFRESH_NOTES:DEFAULT');  
+  return true
+}
+
+export const fetchNotesIfNeeded = () => (dispatch, getState) => {
+  console.log('FETCH_NOTES_IF_NEEDED');
+  if (shouldFetchNotes(getState())) {
+    console.log('FETCH_NOTES_IF_NEEDED: YES');
+    return dispatch(fetchNotes())
+  } else {
+    console.log('FETCH_NOTES_IF_NEEDED: NO');
+  }
+}
+
+
+
+//NOTE
 export const addNote = (note) => {
     console.log('ADD_NOTE:');
     return {
@@ -46,82 +141,7 @@ export const closeEditNote = (note) => {
     }
 }
 
-
-//Async requests
-const fetchNotesRequest = () => {
-    console.log('FETCH_NOTES_REQUEST:');
-    return {
-      type: types.FETCH_NOTES_REQUEST
-    };
-}
-
-const fetchNotesSuccess = (json) => {
-	console.log('FETCH_NOTES_SUCCESS:');
-    return {
-      type: types.FETCH_NOTES_SUCCESS,
-    	notes: json,
-    	received: Date.now()
-  	};
-}
-
-const fetchNotesError = (error) => {
-	console.log('FETCH_NOTES_ERROR:');
-    return {
-      type: types.FETCH_NOTES_ERROR,	
-    	error: error
-  	};
-}
-
-export const fetchNotes = () => dispatch => {
-	console.log('FETCH_NOTES:');
-	const appointment = '1';
-	dispatch(fetchNotesRequest(appointment));
-	return fetch(requests.notesURL, requests.getInit)
-		.then(
-			checkStatus
-		)
-		.then(
-			parseJSON
-		)
-		.then((responseJSON) => {
-			console.log('FETCH_NOTES:SUCCESS');
-			console.dir(responseJSON);
-            dispatch(fetchNotesSuccess(responseJSON))
-          }
-		)
-    .catch((responseError) => {		
-			console.log('FETCH_NOTES:ERROR');
-			console.dir(responseError);
-			dispatch(fetchNotesError(responseError))
-		  }
-		)
-}
-
-const shouldFetchNotes = (state) => {
-console.log('SHOULD_REFRESH_NOTES');	
-  const notes = state.notes;
-  if (!notes || !notes.items) {
-  	console.log('SHOULD_REFRESH_NOTES:NO_CONTENT');	
-    return true
-  }
-  if (notes.isFetching) {
-  	console.log('SHOULD_REFRESH_NOTES:ALREADY_FETCHING');	
-    return false
-  }
-  console.log('SHOULD_REFRESH_NOTES:DEFAULT');	
-  return true
-}
-
-export const fetchNotesIfNeeded = () => (dispatch, getState) => {
-	console.log('FETCH_NOTES_IF_NEEDED');
-  if (shouldFetchNotes(getState())) {
-  	console.log('FETCH_NOTES_IF_NEEDED: YES');
-    return dispatch(fetchNotes())
-  } else {
-    console.log('FETCH_NOTES_IF_NEEDED: NO');
-  }
-}
-
+//create
 const saveNoteRequest = (note) => {
   console.log('SAVE_NOTE_REQUEST:');  
     return {
@@ -174,9 +194,7 @@ export const saveNote = (note) => (dispatch) => {
       )
 }
 
-
 //delete
-
 const removeNoteRequest = (note) => {
   console.log('REMOVE_NOTE_REQUEST:');  
     return {
@@ -233,7 +251,7 @@ export const removeNote = (note) => (dispatch) => {
       )
 }
 
-
+//update
 const updateNoteRequest = (note) => {
   console.log('UPDATE_NOTE_REQUEST:');  
     return {
@@ -286,5 +304,14 @@ export const updateNote = (note, updateParams) => (dispatch) => {
         dispatch(updateNoteError( note, responseError))
         }
       )
+}
+
+//pending - update for new notes
+export const pendingUpdate = (update) => {
+  console.log('PENDING_UPDATE:');  
+    return {
+      type: types.PENDING_UPDATE,
+      update
+    };
 }
 
