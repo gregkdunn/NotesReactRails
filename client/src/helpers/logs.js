@@ -4,7 +4,7 @@ export const logState = (title, state) => {
         console.dir(theState.toJS());
 }
 
-const useDebugConsole = false;
+const useDebugConsole = true;
 export const debugConsole = (strings) => {
 	if (useDebugConsole) {
 		console.log(strings)

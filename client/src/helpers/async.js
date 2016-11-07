@@ -14,6 +14,7 @@ export const checkStatus  =  (response) => {
 
   export const parseJSON = (response) => {
     console.log('PARSEJSON:');
+    console.dir(response);
     let json =  response.json();
     console.dir(json);
     return json;
