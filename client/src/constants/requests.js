@@ -4,16 +4,16 @@ export const defaultHeaders = new Headers({
   "X-Custom-Header": "Oracle SRM",
 });
 
-export const getInit = { method: 'GET',
+export const getHeaders = { method: 'GET',
                headers: defaultHeaders };
 
-export const deleteInit = { method: 'DELETE',
+export const deleteHeaders = { method: 'DELETE',
                headers: defaultHeaders };
 
-const postInit = { method: 'POST',
+const postHeaders = { method: 'POST',
                headers: defaultHeaders };               
 
-const putInit = { method: 'PUT',
+const putHeaders = { method: 'PUT',
                headers: defaultHeaders };
 
 const initWithBodyObject = (init, anObject) => {
@@ -23,22 +23,23 @@ const initWithBodyObject = (init, anObject) => {
 	return Object.assign(init, {'body': jsonObject});
 
 }
-export const postInitWithBodyObject = (anObject) => {
-	return initWithBodyObject(postInit, anObject)
+
+export const postHeadersWithBodyObject = (anObject) => {
+	return initWithBodyObject(postHeaders, anObject)
 }
 
-export const putInitWithBodyObject = (anObject) => {
-	return initWithBodyObject(putInit, anObject)
+export const putHeadersWithBodyObject = (anObject) => {
+	return initWithBodyObject(putHeaders, anObject)
 }
 
-//base URLs
-const baseURL = 'http://localhost:3001';
-const versionNamespace = '/v1';
+//Base URLs
+export const baseURL = 'http://localhost:3001';
+export const versionNamespace = '/v1';
 export const apiBaseURL = baseURL + versionNamespace;
 
-//routes
-const notesBase = '/notes';
-export const notesURL = apiBaseURL + notesBase;
+//API routes
+export const notesBaseURL = '/notes';
+export const notesURL = apiBaseURL + notesBaseURL;
 export const noteURL = (note) => {return notesURL + '/' + note.get('id')}
 
 
