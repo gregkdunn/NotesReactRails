@@ -1,17 +1,16 @@
 import React, { PropTypes } from 'react'
-import { connect } from 'react-redux'
-import { addNote } from '../actions/notesActions'
-import { pendingUpdate, saveNote } from '../actions/notesActions'
 import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import uuid from 'uuid'
 
+//Controlled Form Conponent Example
+//- state changed on keyup
 
-let NoteInput = ({ pending, dispatch }) => {
+let NoteInput = ({pending, pendingUpdate, addNote, saveNote}) => {
 
     const resetForm = () => {
-        dispatch(pendingUpdate({'title': '', 'content': ''}));
+        pendingUpdate({'title': '', 'content': ''})
    }
 
     const submitNote = () => {
@@ -28,22 +27,15 @@ let NoteInput = ({ pending, dispatch }) => {
             uuid: uuidVal
         };  
 
-        dispatch(addNote(noteParams))
-
-        dispatch(saveNote(noteParams))
+        addNote(noteParams)
+        saveNote(noteParams)
 
         resetForm()
     }
 
    const cardStyle = {width:'320px', float:'left',margin:'8px'};
-
-   const textFieldStyle = {
-        display:'block'
-   }
-
-   const buttonStyle = {
-       //float:'right'
-   }
+   const textFieldStyle = {display:'block'}
+   const buttonStyle = {float:'none'}
 
    let onChangeHandler = (evt) => {
         console.log('NoteInput.onChangeHandler')
@@ -55,8 +47,7 @@ let NoteInput = ({ pending, dispatch }) => {
         if (field) {
             let update = {}
             update[field.name] = field.value
-
-            dispatch(pendingUpdate(update))
+            pendingUpdate(update)
         }
    }
 
@@ -76,21 +67,18 @@ let NoteInput = ({ pending, dispatch }) => {
                 <RaisedButton label="Add Note" primary={true}  style={buttonStyle} onClick={e => {submitNote();}}/>
             </CardActions>
             </form>
-            
         </Card>
     );
 };
 
 NoteInput.PropTypes = {
-    pending : PropTypes.object.isRequired
+    pending : PropTypes.shape({
+        title: React.PropTypes.string,
+        content: React.PropTypes.string
+    }).isRequired,
+    pendingUpdate: PropTypes.func.isRequired,
+    addNote: PropTypes.func.isRequired,
+    saveNote: PropTypes.func.isRequired
 }
-
-const mapStateToProps = (state) => {
-    return {
-        pending: state.get('notes').get('pending')
-    }
-}
-
-NoteInput = connect(mapStateToProps)(NoteInput);
 
 export default NoteInput;

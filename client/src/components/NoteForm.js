@@ -1,13 +1,14 @@
 import React, {PropTypes} from 'react';
-import { connect } from 'react-redux'
-import Immutable from 'immutable'
-import { closeEditNote, updateNote } from '../actions/notesActions'
 import {Card, CardActions} from 'material-ui/Card'
 import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
 import {yellow100} from 'material-ui/styles/colors'
 
-let NoteForm = ({note, dispatch}) => {
+
+//Uncontrolled Form Conponent Example 
+//- state changed on submit
+
+let NoteForm = ({note, onEditCloseHandler, onUpdateHandler}) => {
     const listItemStyle={margin:'8px',float:'left'};
     const cardStyle = {width:'320px', backgroundColor: yellow100};  
     const textFieldStyle = {display:'block', margin: '8px'};
@@ -17,7 +18,7 @@ let NoteForm = ({note, dispatch}) => {
 
     const cancelClick = () => {
         console.log('NoteInput.cancelClick');
-        dispatch(closeEditNote(note));
+        onEditCloseHandler(note)
     }
 
     const updateClick = () => {
@@ -28,7 +29,7 @@ let NoteForm = ({note, dispatch}) => {
             content: contentInput.getValue()
         }        
 
-        dispatch(updateNote(note, updateParams));
+        onUpdateHandler(note, updateParams)
     }
 
     return (
@@ -47,9 +48,14 @@ let NoteForm = ({note, dispatch}) => {
 }
 
 NoteForm.propTypes = {
-    note: PropTypes.instanceOf(Immutable.Map).isRequired
+    note: PropTypes.shape({
+        id: React.PropTypes.number,
+        title: React.PropTypes.string,
+        content: React.PropTypes.string,
+        isSaving: React.PropTypes.boolean
+    }).isRequired,
+    onUpdateHandler:PropTypes.func.isRequired,
+    onEditCloseHandler:PropTypes.func.isRequired
 }
 
-
-NoteForm = connect()(NoteForm)
 export default NoteForm

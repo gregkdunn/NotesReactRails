@@ -1,21 +1,19 @@
 import React, { PropTypes } from 'react'
-import { connect } from 'react-redux'
-import { filterNotes } from '../actions/notesActions'
 import TextField from 'material-ui/TextField'
 
-let NoteFilter = ({filterKeywords = '', dispatch}) => {
-    console.log('NoteFilter')
+let Filter = ({filterKeywords = '', filterAction}) => {
+    console.log('Filter')
     console.dir(filterKeywords)
 
     let onChangeHandler = (evt) => {
-        console.log('NoteFilter.onChangeHandler')
+        console.log('Filter.onChangeHandler')
         console.dir(evt)
         console.log('filterKeyword')
         console.dir(filterKeywords)
 
         const field = evt.target
         if (field) {
-            dispatch(filterNotes(field.value))
+            filterAction(field.value)
         }
     }
 
@@ -30,15 +28,9 @@ let NoteFilter = ({filterKeywords = '', dispatch}) => {
     )
 }
 
-NoteFilter.propTypes = {
-    filterKeywords: PropTypes.string.isRequired
+Filter.propTypes = {
+    filterKeywords: PropTypes.string.isRequired,
+    filterAction: PropTypes.func.isRequired
 }
 
-const mapStateToProps = (state) => {
-    return {
-        filterKeywords: state.getIn(['notes', 'filterKeywords'])
-    }
-};
-
-NoteFilter = connect(mapStateToProps)(NoteFilter)
-export default NoteFilter
+export default Filter
