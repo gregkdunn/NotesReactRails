@@ -1,14 +1,19 @@
- import * as types from '../actions/actionTypes'
+import * as types from '../constants/actionTypes'
+import * as selectors from '../constants/selectorTypes'
 import Immutable from 'immutable'
-//import {logState} from '../helpers/logs'
 import { tryListItemUpdate } from '../helpers/lists'
-import * as selectors from '../selectors/selectorTypes'
 
 const initialState = Immutable.Map({
         items:Immutable.List(), 
         isFetching: true,
         lastUpdated: null,
         sortBy: selectors.SORT_BY_TITLE,
+        sortValues: [
+            {order:1, value:selectors.SORT_BY_ID, title:"Id"},
+	        {order:2, value:selectors.SORT_BY_TITLE, title:"Title"},
+	        {order:3, value:selectors.SORT_BY_CREATED_DATE, title:"Created"},
+	        {order:4, value:selectors.SORT_BY_UPDATED_DATE, title:"Updated"}
+        ],
         filterKeywords: '',
         pending: {
             title: '',
@@ -41,10 +46,16 @@ const createNotes = (notes) => {
 }
 
 const notes = (state = initialState, action) => {
+
+    //console.log(' >>>State:' + state)
+
     switch (action.type) {
+        //FRONTEND ACTIONS
         case types.ADD_NOTE:
             console.log('REDUCER:ADD_NOTE')
             const newNote = createNote(action.note)
+            console.log('newNote:' + newNote)
+            console.log('State:' + state)
             return  state.updateIn(['items'], list => list.push(newNote));
         case types.DELETE_NOTE:
             console.log('REDUCER:DELETE_NOTE')
@@ -52,6 +63,7 @@ const notes = (state = initialState, action) => {
         case types.EDIT_NOTE: 
             console.log('REDUCER:EDIT_NOTE')
             return tryListItemUpdate(state, 'items', 'id', action.note)
+        
         //TOGGLE EDIT
         case types.OPEN_EDIT_NOTE:
             console.log('REDUCER:OPEN_EDIT_NOTE')        
@@ -59,17 +71,20 @@ const notes = (state = initialState, action) => {
         case types.CLOSE_EDIT_NOTE:
             console.log('REDUCER:CLOSE_EDIT_NOTE')            
             return tryListItemUpdate(state, 'items', 'id', action.note, {'isEditing':false})
+        
         //FETCH
         case types.FETCH_NOTES_REQUEST:
             console.log('REDUCER:FETCH_NOTES_REQUEST')
             return state.set('isFetching', true)
         case types.FETCH_NOTES_SUCCESS:
             console.log('REDUCER:FETCH_NOTES_SUCCESS')
+
             state = state.set('items', createNotes(action.notes))
             return state.set('isFetching', false)
         case types.FETCH_NOTES_ERROR:
             console.log('REDUCER:FETCH_NOTE_ERROR')
             return state.set('isFetching', false)  
+        
         //SAVE
         case types.SAVE_NOTE_SUCCESS:
             console.log('REDUCER:SAVE_NOTES_SUCCESS')
@@ -80,6 +95,7 @@ const notes = (state = initialState, action) => {
         case types.SAVE_NOTE_REQUEST:
             console.log('REDUCER:SAVE_NOTE_REQUEST')
             return tryListItemUpdate(state, 'items', 'uuid', action.note, {'isSaving': true})
+        
         //UPDATE
         case types.UPDATE_NOTE_SUCCESS:
             console.log('REDUCER:UPDATE_NOTE_SUCCESS')
@@ -90,6 +106,7 @@ const notes = (state = initialState, action) => {
         case types.UPDATE_NOTE_REQUEST:
             console.log('REDUCER:UPDATE_NOTE_REQUEST')
             return tryListItemUpdate(state, 'items', 'id', action.note, {'isSaving': true})             
+        
         //REMOVE
         case types.REMOVE_NOTE_SUCCESS:
             console.log('REDUCER:REMOVE_NOTE_SUCCESS')
@@ -109,7 +126,6 @@ const notes = (state = initialState, action) => {
             console.log('REDUCER:FILTER_NOTES')
             console.dir(action)
             return state.set('filterKeywords', action.filterKeywords)
-
 
         //PENDING - NEW NOTES FROM FORM
         case types.PENDING_UPDATE:
