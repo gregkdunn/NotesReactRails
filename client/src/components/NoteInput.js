@@ -33,7 +33,6 @@ let NoteInput = ({pending, pendingUpdate, addNote, saveNote}) => {
         resetForm()
     }
 
-   const cardStyle = {width:'320px', float:'left',margin:'8px'};
    const textFieldStyle = {display:'block'}
    const buttonStyle = {float:'none'}
 
@@ -52,7 +51,7 @@ let NoteInput = ({pending, pendingUpdate, addNote, saveNote}) => {
    }
 
     return (
-        <Card style={cardStyle}>
+        <Card className='ma2 fl w-30-ns w-90 bg-light-yellow'>
                 <CardHeader
                   title="New Note"
                   actAsExpander={true}

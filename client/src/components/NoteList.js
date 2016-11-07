@@ -4,10 +4,9 @@ import Note from './Note'
 import NoteForm from './NoteForm'
 
 const NoteList = ({notes, onDeleteHandler, onEditCloseHandler, onEditOpenHandler, onUpdateHandler}) => {
-    var listStyle = {listStyleType:'none'};
 
     return (
-        <ul style={listStyle}>
+        <div className='list'>
             {notes.map(note => {
             	if(note.get('isEditing')) { 
             		return <NoteForm key={note.get('id')} note={note} onEditCloseHandler={onEditCloseHandler} onUpdateHandler={onUpdateHandler} />
@@ -15,7 +14,7 @@ const NoteList = ({notes, onDeleteHandler, onEditCloseHandler, onEditOpenHandler
             		return <Note key={note.get('id')} note={note} onDeleteHandler={onDeleteHandler} onEditOpenHandler={onEditOpenHandler}/>
             	}
             })}           
-        </ul>
+        </div>
     );
 };
 

@@ -11,19 +11,13 @@ let Sort = ({sortValues, selectedValue, sortAction}) => {
 	const handleChange = (event, index, value) => {
 		sortAction(value)
 	}
-	
-	const menuItemStyle = {
-		backgroundColor: 'white', 
-		backgroundImage:'none',
-		border: '0'
-	}
 
     return (
     	<div>
     	<span>Sort By:</span>
 	    <DropDownMenu value={selectedValue} onChange={handleChange}>
 			{sortValues.map(sort => {
-				return <MenuItem style={menuItemStyle} key={sort.order} value={sort.value} primaryText={sort.title} />
+				return <MenuItem key={sort.order} value={sort.value} primaryText={sort.title} />
 			})}  
         </DropDownMenu>  
         </div>

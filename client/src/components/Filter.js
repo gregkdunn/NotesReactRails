@@ -16,13 +16,9 @@ let Filter = ({filterKeywords = '', filterAction}) => {
             filterAction(field.value)
         }
     }
-
-    const sectionStyle = {
-        margin:'16px'
-    }
 	
     return (
-      <div style={sectionStyle}>
+      <div className="ma2">
         <TextField floatingLabelText="Filter By" value={filterKeywords} onChange={onChangeHandler}/>  
       </div>
     )

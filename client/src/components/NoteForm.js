@@ -9,11 +9,6 @@ import {yellow100} from 'material-ui/styles/colors'
 //- state changed on submit
 
 let NoteForm = ({note, onEditCloseHandler, onUpdateHandler}) => {
-    const listItemStyle={margin:'8px',float:'left'};
-    const cardStyle = {width:'320px', backgroundColor: yellow100};  
-    const textFieldStyle = {display:'block', margin: '8px'};
-    const idStyle ={float:'right',margin:'8px', fontSize:'10px'}
-
     let titleInput, contentInput
 
     const cancelClick = () => {
@@ -33,17 +28,15 @@ let NoteForm = ({note, onEditCloseHandler, onUpdateHandler}) => {
     }
 
     return (
-        <li style={listItemStyle} className={(note.get('isSaving') ? 'dim' : '')}>
-       		<Card style={cardStyle}>
-             <span style={idStyle}>{note.get('id')}</span>
-             <TextField floatingLabelText="Title" ref={node => {titleInput = node}} style={textFieldStyle} defaultValue={note.get('title')}/>
-             <TextField floatingLabelText="Note" ref={node => {contentInput = node}}  style={textFieldStyle} defaultValue={note.get('content')}/>
+            <Card className={(note.get('isSaving') ? 'dim ' : '') + 'ma2 fl w-30-ns w-90 bg-light-yellow'}>
+             <span className="idDisplay fr pa2 f6 gray">{note.get('id')}</span>
+             <TextField floatingLabelText="Title" ref={node => {titleInput = node}} className="db ma2" defaultValue={note.get('title')}/>
+             <TextField floatingLabelText="Note" ref={node => {contentInput = node}} className="db ma2" defaultValue={note.get('content')}/>
              <CardActions>
                <FlatButton label="Save" primary={true} onClick={e => {updateClick()}}/>
                <FlatButton label="Cancel" secondary={true} onClick={e => {cancelClick()}} />
              </CardActions>
        		</Card>
-        </li>
     )
 }
 

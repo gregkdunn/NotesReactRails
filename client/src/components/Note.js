@@ -4,10 +4,7 @@ import FlatButton from 'material-ui/FlatButton'
 import {yellow100} from 'material-ui/styles/colors'
 
 let Note = ({note, onEditOpenHandler, onDeleteHandler}) => {
-    const listItemStyle={margin:'8px',float:'left'};
-    const cardStyle = {width:'320px', backgroundColor: yellow100};
-    const idStyle ={float:'right',margin:'8px', fontSize:'10px'}
-
+    
     const deleteClick = () => {
         console.log('NoteInput.deleteNote');
         onDeleteHandler(note)
@@ -18,9 +15,8 @@ let Note = ({note, onEditOpenHandler, onDeleteHandler}) => {
     };
 
     return (
-        <li style={listItemStyle} className={(note.get('isSaving') ? 'dim' : '')}>
-       		<Card style={cardStyle}>
-             <span className="idDisplay" style={idStyle}>{note.get('id')}</span>
+       		<Card className={(note.get('isSaving') ? 'dim ' : '') + 'ma2 fl w-30-ns w-90 bg-light-yellow'}>
+             <span className="idDisplay fr pa2 f6 gray">{note.get('id')}</span>
        			 <CardTitle title={note.get('title')}/>
        			 <CardText>{note.get('content')}</CardText>
              <CardActions>
@@ -28,7 +24,6 @@ let Note = ({note, onEditOpenHandler, onDeleteHandler}) => {
               <FlatButton label="Delete" secondary={true} onClick={e => {deleteClick()}} />
              </CardActions>
        		</Card>
-        </li>
     );
 };
 
