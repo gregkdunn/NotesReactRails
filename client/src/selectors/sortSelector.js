@@ -1,11 +1,11 @@
 import { createSelector } from 'reselect'
-import * as selectors from './selectorTypes'
-const getSortParameter = (state) => state.get('sortBy')
-const getItems = (state) => state.get('items')
+import * as selectors from '../constants/selectorTypes'
+import { getItemsFilteredByKeyword } from './filterSelector'
 
-export const getSortedItems = createSelector(
-  [ getSortParameter, getItems ],
-  (sortParameter, items) => {
+const getSortParameter = (state) => state.get('sortBy')
+
+
+const sortItems = (sortParameter, items) => {
     console.log('getSortedNotes Selector')
     switch (sortParameter) {
       case selectors.SORT_BY_ID:
@@ -27,5 +27,21 @@ export const getSortedItems = createSelector(
       default:
         return items  
     }
+  }
+
+/* not currently used
+const getItems = (state) => state.get('items')
+export const getSortedItems = createSelector(
+  [ getSortParameter, getItems ],
+  (sortParameter, items) => {
+    return sortItems(sortParameter, items)
+  }
+)
+*/
+
+export const getSortedItemsFilteredByKeyword = createSelector (
+  [ getSortParameter, getItemsFilteredByKeyword ],
+  (sortParameter, items) => {
+    return sortItems(sortParameter, items)
   }
 )
