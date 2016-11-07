@@ -1,7 +1,7 @@
 import React from 'react'
 import Immutable from 'Immutable'
 import { shallow } from 'enzyme'
-import Note from './Note'
+import Note from '../Note'
 
 let enzymeWrapper
 const exampleNote = Immutable.fromJS({
