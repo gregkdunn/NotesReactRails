@@ -1,6 +1,6 @@
-import * as types from './actionTypes'
+import * as types from '../constants/actionTypes'
 import * as requests from '../constants/requests'
-import { checkStatus, parseJSON } from './async'
+import { checkStatus, parseJSON } from '../helpers/async'
 
 
 //NOTES
@@ -46,29 +46,31 @@ const fetchNotesError = (error) => {
     };
 }
 
+//thunk example
 export const fetchNotes = () => dispatch => {
   console.log('FETCH_NOTES:');
-  const appointment = '1';
-  dispatch(fetchNotesRequest(appointment));
-  return fetch(requests.notesURL, requests.getInit)
-    .then(
-      checkStatus
-    )
-    .then(
-      parseJSON
-    )
+  dispatch(fetchNotesRequest());
+  return fetch(requests.notesURL, requests.getHeaders)
+    .then((response) => {
+      console.log('FETCH_NOTES:CHECK_STATUS')
+      console.dir(response)
+      return checkStatus(response)
+    })
+    .then((response) => {
+      console.log('FETCH_NOTES:PARSE_JSON')
+      console.dir(response)
+      return parseJSON(response)
+    })
     .then((responseJSON) => {
       console.log('FETCH_NOTES:SUCCESS');
-      console.dir(responseJSON);
-            dispatch(fetchNotesSuccess(responseJSON))
-          }
-    )
+      console.dir(responseJSON)
+      dispatch(fetchNotesSuccess(responseJSON))
+    })
     .catch((responseError) => {   
       console.log('FETCH_NOTES:ERROR');
-      console.dir(responseError);
+      console.log(responseError);
       dispatch(fetchNotesError(responseError))
-      }
-    )
+    })
 }
 
 const shouldFetchNotes = (state) => {
@@ -99,6 +101,7 @@ export const fetchNotesIfNeeded = () => (dispatch, getState) => {
 
 
 //NOTE
+//TODO in the future, send date to actionCreator
 export const addNote = (note) => {
     console.log('ADD_NOTE:');
     return {
@@ -172,14 +175,14 @@ const saveNoteError = (note, error) => {
 export const saveNote = (note) => (dispatch) => {
     console.log('SAVE_NOTE:');
     dispatch(saveNoteRequest( note));
-    const postNote = requests.postInitWithBodyObject(note);
+    const postNote = requests.postHeadersWithBodyObject(note);
     return fetch(requests.notesURL, postNote)
-      .then(
-        checkStatus
-      )
-      .then(
-        parseJSON
-      )
+      .then((response) => {
+        return checkStatus(response)
+      })
+      .then((response) => {
+        return parseJSON(response)
+      })
       .then((responseJSON) => {
         console.log('SAVE_NOTE:SUCCESS');
         console.dir(responseJSON);
@@ -225,13 +228,13 @@ const removeNoteError = (note, error) => {
 export const removeNote = (note) => (dispatch) => {
     console.log('REMOVE_NOTE:');
     dispatch(removeNoteRequest(note));
-    return fetch(requests.noteURL(note), requests.deleteInit)
-      .then(
-        checkStatus
-      )
-      .then(
-        parseJSON
-      )
+    return fetch(requests.noteURL(note), requests.deleteHeaders)
+      .then((response) => {
+        return checkStatus(response)
+      })
+      .then((response) => {
+        return parseJSON(response)
+      })
       .then((responseJSON) => {
         console.log('REMOVE_NOTE:SUCCESS');
         console.dir(responseJSON);
@@ -284,14 +287,14 @@ export const updateNote = (note, updateParams) => (dispatch) => {
     console.dir(updateParams)
 
     dispatch(updateNoteRequest(note));
-    const putNote = requests.putInitWithBodyObject(updateParams);
+    const putNote = requests.putHeadersWithBodyObject(updateParams);
     return fetch(requests.noteURL(note), putNote)
-      .then(
-        checkStatus
-      )
-      .then(
-        parseJSON
-      )
+      .then((response) => {
+        return checkStatus(response)
+      })
+      .then((response) => {
+        return parseJSON(response)
+      })
       .then((responseJSON) => {
         console.log('UPDATE_NOTE:SUCCESS');
         console.dir(responseJSON);
