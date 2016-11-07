@@ -28,7 +28,7 @@ let NoteForm = ({note, onEditCloseHandler, onUpdateHandler}) => {
     }
 
     return (
-            <Card className={(note.get('isSaving') ? 'dim ' : '') + 'ma2 fl w-30-ns w-90 bg-light-yellow'}>
+            <Card style={{backgroundColor:yellow100}} className={(note.get('isSaving') ? 'dim ' : '') + 'ma2 fl w-30-ns w-90 bg-light-yellow'}>
              <span className="idDisplay fr pa2 f6 gray">{note.get('id')}</span>
              <TextField floatingLabelText="Title" ref={node => {titleInput = node}} className="db ma2" defaultValue={note.get('title')}/>
              <TextField floatingLabelText="Note" ref={node => {contentInput = node}} className="db ma2" defaultValue={note.get('content')}/>
