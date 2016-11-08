@@ -2,8 +2,8 @@ import React, { PropTypes } from 'react'
 import TextField from 'material-ui/TextField'
 
 let Filter = ({filterKeywords = '', filterAction}) => {
-    console.log('Filter')
-    console.dir(filterKeywords)
+    //console.log('Filter')
+    //console.dir(filterKeywords)
 
     let onChangeHandler = (evt) => {
         console.log('Filter.onChangeHandler')

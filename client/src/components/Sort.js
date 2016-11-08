@@ -5,8 +5,8 @@ import MenuItem from 'material-ui/MenuItem'
 
 let Sort = ({sortValues, selectedValue, sortAction}) => {
 	
-	console.log('Sort')
-	console.dir(selectedValue)
+	//console.log('Sort')
+	//console.dir(selectedValue)
 
 	const handleChange = (event, index, value) => {
 		sortAction(value)

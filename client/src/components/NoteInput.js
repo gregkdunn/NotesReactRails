@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react'
 import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card'
 import TextField from 'material-ui/TextField'
+import Slider from 'material-ui/Slider'
 import RaisedButton from 'material-ui/RaisedButton'
+import FlatButton from 'material-ui/FlatButton'
 import uuid from 'uuid'
 
 //Controlled Form Conponent Example
@@ -24,6 +26,7 @@ let NoteInput = ({pending, pendingUpdate, addNote, saveNote}) => {
         const noteParams = {
             title: pending.title,
             content: pending.content,
+            importance: pending.importance,
             uuid: uuidVal
         };  
 
@@ -50,8 +53,17 @@ let NoteInput = ({pending, pendingUpdate, addNote, saveNote}) => {
         }
    }
 
+   let onSliderChangeHandler = (evt, value) => {
+        console.log('NoteInput.onSliderChangeHandler')
+        console.dir(evt  + ' : ' + value)
+        console.log('pending')
+        console.dir(pending)
+        let update = {'importance': value}
+        pendingUpdate(update)
+   }
+
     return (
-        <Card className='ma2 fl w-30-ns w-90 bg-light-yellow'>
+        <Card  style={{}} className='ma2 fl w-30-ns w-90 bg-light-yellow'>
                 <CardHeader
                   title="New Note"
                   actAsExpander={true}
@@ -61,9 +73,14 @@ let NoteInput = ({pending, pendingUpdate, addNote, saveNote}) => {
             <CardText>
                 <TextField floatingLabelText="Title" value={pending.title} style={textFieldStyle} name="title" onChange={onChangeHandler} />
                 <TextField floatingLabelText="Note" value={pending.content} style={textFieldStyle} name="content" onChange={onChangeHandler} />
+
+                <p>Importance</p>
+                <Slider className="w-60" step={1} value={pending.importance} min={1} max={3}  name="importance" onChange={onSliderChangeHandler} />
             </CardText>
             <CardActions>    
                 <RaisedButton label="Add Note" primary={true}  style={buttonStyle} onClick={e => {submitNote();}}/>
+                 <FlatButton label="Clear" secondary={true} onClick={e => {resetForm()}} />
+
             </CardActions>
             </form>
         </Card>
@@ -73,7 +90,8 @@ let NoteInput = ({pending, pendingUpdate, addNote, saveNote}) => {
 NoteInput.PropTypes = {
     pending : PropTypes.shape({
         title: React.PropTypes.string,
-        content: React.PropTypes.string
+        content: React.PropTypes.string,
+        importance: React.PropTypes.number
     }).isRequired,
     pendingUpdate: PropTypes.func.isRequired,
     addNote: PropTypes.func.isRequired,

@@ -7,17 +7,19 @@ const initialState = Immutable.Map({
         items:Immutable.List(), 
         isFetching: true,
         lastUpdated: null,
-        sortBy: selectors.SORT_BY_TITLE,
+        sortBy: selectors.SORT_BY_IMPORTANCE,
         sortValues: [
             {order:1, value:selectors.SORT_BY_ID, title:"Id"},
 	        {order:2, value:selectors.SORT_BY_TITLE, title:"Title"},
-	        {order:3, value:selectors.SORT_BY_CREATED_DATE, title:"Created"},
-	        {order:4, value:selectors.SORT_BY_UPDATED_DATE, title:"Updated"}
+            {order:3, value:selectors.SORT_BY_IMPORTANCE, title:"Importance"},
+	        {order:4, value:selectors.SORT_BY_CREATED_DATE, title:"Created"},
+	        {order:5, value:selectors.SORT_BY_UPDATED_DATE, title:"Updated"}
         ],
         filterKeywords: '',
         pending: {
             title: '',
-            content: ''
+            content: '',
+            importance: 2
         }
     }
 )
@@ -27,11 +29,14 @@ const defaultNote = {
                    'id': 0,
                    'title': '',
                    'content': '',
+                   'order': 0,
+                   'importance': 2,
                    'created_at': '', 
                    'updated_at': '',
                    'isEditing': false,
                    'isSaving': false,
-                   'isDeleting': false
+                   'isDeleting': false,
+                   
                  }
 
 const createNote = (note) => {

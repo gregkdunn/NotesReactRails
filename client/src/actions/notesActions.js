@@ -174,7 +174,7 @@ const saveNoteError = (note, error) => {
 
 export const saveNote = (note) => (dispatch) => {
     console.log('SAVE_NOTE:');
-    dispatch(saveNoteRequest( note));
+    dispatch(saveNoteRequest(note));
     const postNote = requests.postHeadersWithBodyObject(note);
     return fetch(requests.notesURL, postNote)
       .then((response) => {
@@ -317,4 +317,3 @@ export const pendingUpdate = (update) => {
       update
     };
 }
-
