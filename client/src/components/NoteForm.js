@@ -30,11 +30,11 @@ let NoteForm = ({note, editClose, updateNote}) => {
     }
 
     return (
-            <Card style={{height:'280px', backgroundColor:yellow100}} className={(note.get('isSaving') ? 'dim ' : '') + 'ma0 fl w-30-ns w-90 bg-light-yellow'}>
+            <Card style={{minHeight:'280px', backgroundColor:yellow100}} className={(note.get('isSaving') ? 'dim ' : '') + 'ma2 fl w-30-ns w-90 bg-light-yellow'}>
              <span className="idDisplay fr pa2 f6 gray">{note.get('id')}</span>
              <TextField floatingLabelText="Title" ref={node => {titleInput = node}} className="db ma2" defaultValue={note.get('title')}/>
              <TextField floatingLabelText="Note" ref={node => {contentInput = node}} className="db ma2" defaultValue={note.get('content')}/>
-             <Slider className="py2 w-60" ref={node => {importanceSlider = node}} step={1} value={note.get('importance')} min={1} max={3}  name="importance" />           
+             <Slider className="center w-60" ref={node => {importanceSlider = node}} step={1} value={note.get('importance')} min={1} max={3}  name="importance" />           
              <CardActions>
                <FlatButton label="Save" primary={true} onClick={e => {updateClick()}}/>
                <FlatButton label="Cancel" secondary={true} onClick={e => {cancelClick()}} />

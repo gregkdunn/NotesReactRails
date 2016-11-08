@@ -18,8 +18,9 @@ let Filter = ({filterKeywords = '', filterAction}) => {
     }
 	
     return (
-      <div className="ma2">
-        <TextField floatingLabelText="Filter By" value={filterKeywords} onChange={onChangeHandler}/>  
+      <div className="fl db w-100 cf">
+    	<label className='db ttu fw5 f6 gray roboto'>Filter By:</label> 
+        <TextField floatingLabelText="Keyword" value={filterKeywords} onChange={onChangeHandler}/>  
       </div>
     )
 }

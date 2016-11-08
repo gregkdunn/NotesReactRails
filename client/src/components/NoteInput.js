@@ -12,11 +12,11 @@ import uuid from 'uuid'
 let NoteInput = ({pending, pendingUpdate, addNote, saveNote}) => {
 
     const resetForm = () => {
-        pendingUpdate({'title': '', 'content': ''})
+        pendingUpdate({'title': '', 'content': '', 'importance': 2})
    }
 
     const submitNote = () => {
-        console.log('NoteInput.submitNote');
+        //console.log('NoteInput.submitNote');
 
         if(!pending.title && !pending.content) {
             return 
@@ -40,11 +40,10 @@ let NoteInput = ({pending, pendingUpdate, addNote, saveNote}) => {
    const buttonStyle = {float:'none'}
 
    let onChangeHandler = (evt) => {
-        console.log('NoteInput.onChangeHandler')
-        console.dir(evt)
-        console.log('pending')
-        console.dir(pending)
-
+        //console.log('NoteInput.onChangeHandler')
+        //console.dir(evt)
+        //console.log('pending')
+        //console.dir(pending)
         const field = evt.target
         if (field) {
             let update = {}
@@ -54,38 +53,33 @@ let NoteInput = ({pending, pendingUpdate, addNote, saveNote}) => {
    }
 
    let onSliderChangeHandler = (evt, value) => {
-        console.log('NoteInput.onSliderChangeHandler')
-        console.dir(evt  + ' : ' + value)
-        console.log('pending')
-        console.dir(pending)
+        //console.log('NoteInput.onSliderChangeHandler')
+        //console.dir(evt  + ' : ' + value)
+        //console.log('pending')
+        //console.dir(pending)
         let update = {'importance': value}
         pendingUpdate(update)
    }
 
     return (
-        <Card  style={{}} className='ma2 fl w-30-ns w-90 bg-light-yellow'>
-                <CardHeader
-                  title="New Note"
-                  actAsExpander={true}
-                  showExpandableButton={true}
-                />
+        <Card>
+            <CardHeader title="New Note"/>
             <form onSubmit={e => {e.preventDefault(); submitNote();}} id="noteForm">
             <CardText>
                 <TextField floatingLabelText="Title" value={pending.title} style={textFieldStyle} name="title" onChange={onChangeHandler} />
                 <TextField floatingLabelText="Note" value={pending.content} style={textFieldStyle} name="content" onChange={onChangeHandler} />
 
-                <p>Importance</p>
+                <label className='pt3 db ttu fw5 f6 gray roboto'>Importance</label>
                 <Slider className="w-60" step={1} value={pending.importance} min={1} max={3}  name="importance" onChange={onSliderChangeHandler} />
             </CardText>
             <CardActions>    
                 <RaisedButton label="Add Note" primary={true}  style={buttonStyle} onClick={e => {submitNote();}}/>
                  <FlatButton label="Clear" secondary={true} onClick={e => {resetForm()}} />
-
             </CardActions>
             </form>
         </Card>
-    );
-};
+    )
+}
 
 NoteInput.PropTypes = {
     pending : PropTypes.shape({

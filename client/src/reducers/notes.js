@@ -136,8 +136,6 @@ const notes = (state = initialState, action) => {
         case types.PENDING_UPDATE:
             console.log('REDUCER:PENDING_UPDATE')
             return state.set('pending', Object.assign({}, state.get('pending'), action.update))
-
-
         default:
             return state;
     }

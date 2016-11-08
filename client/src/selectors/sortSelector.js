@@ -4,11 +4,13 @@ import { getItemsFilteredByKeyword } from './filterSelector'
 
 const getSortParameter = (state) => state.get('sortBy')
 
+/* not currently used
 const logPair = (a,b) => {
   console.log('-------------')
   console.log('a' + a.get('title') + ":" + a.get('importance'))
   console.log('b' + b.get('title') + ":" + b.get('importance'))
 }
+*/
 
 const sortItems = (sortParameter, items) => {
     console.log('getSortedNotes Selector')
@@ -23,7 +25,7 @@ const sortItems = (sortParameter, items) => {
         )
       case selectors.SORT_BY_IMPORTANCE:
         return items.sort(
-          (a, b) => {logPair(a,b); return (b.get('importance') - a.get('importance'));}
+          (a, b) => b.get('importance') - a.get('importance')
         )        
       case selectors.SORT_BY_CREATED_DATE:
         return items.sort(

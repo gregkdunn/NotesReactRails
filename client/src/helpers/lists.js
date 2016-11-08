@@ -6,7 +6,10 @@ const currentIndexOfListItem = (list, item, idParam) => {
 
     console.log('itemId:' + itemId);
     console.dir(item)
-    return list.findIndex(current => { debugConsole(current.get(idParam) + '< = >' + itemId);return current.get(idParam) === itemId; });
+    return list.findIndex(current => { 
+        /*debugConsole(current.get(idParam) + '< = >' + itemId);*/
+        return current.get(idParam) === itemId; 
+    });
 }
 
 const updateListItem = (state, listParam, index, update) =>{

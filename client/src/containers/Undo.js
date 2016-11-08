@@ -30,9 +30,10 @@ let Undo = ({ canUndo, canRedo, onUndo, onRedo }) => {
    }
 
     return (
-    	<div>
-          <FlatButton label="< Undo" disabled={shouldDisable(canUndo)} secondary={true} onClick={e => {undoClick()}}/>
-          <FlatButton label="> Redo" disabled={shouldDisable(canRedo)} secondary={true} onClick={e => {redoClick()}} />
+    	<div className="cf">
+         <FlatButton className="fr" label="Redo >" disabled={shouldDisable(canRedo)} secondary={true} onClick={e => {redoClick()}} />
+          <FlatButton className="fl" label="< Undo" disabled={shouldDisable(canUndo)} secondary={true} onClick={e => {undoClick()}}/>
+         
         </div>
     )
 }

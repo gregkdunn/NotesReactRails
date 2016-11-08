@@ -38,7 +38,7 @@ let Note = ({note, onEditOpenHandler, onDeleteHandler, onRemoveHandler}) => {
     }
 
     return (
-       		<Card style={{height:'280px', backgroundColor:colorForImportance(note.get('importance'))}} className={(note.get('isSaving') ? 'dim ' : '') + 'ma2 fl w-30-ns w-90 bg-light-yellow'}>
+       		<Card style={{minHeight:'280px', backgroundColor:colorForImportance(note.get('importance'))}} className={(note.get('isSaving') ? 'dim ' : '') + 'ma2 fl w-30-ns w-90 bg-light-yellow'}>
              <span className="idDisplay fr pa2 f6 gray">{note.get('id')}</span>
        			 <CardTitle title={note.get('title') }/>
        			 <CardText style={{height: '140px'}}>{note.get('content')}</CardText>

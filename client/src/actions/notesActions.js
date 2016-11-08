@@ -2,7 +2,6 @@ import * as types from '../constants/actionTypes'
 import * as requests from '../constants/requests'
 import { checkStatus, parseJSON } from '../helpers/async'
 
-
 //NOTES
 export const sortNotes = (sortBy) => {
     console.log('SORT_NOTES:');
@@ -317,3 +316,4 @@ export const pendingUpdate = (update) => {
       update
     };
 }
+
